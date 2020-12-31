@@ -127,7 +127,7 @@ def ExtractDataFromDB(db):
         if userrows:
             print("\ndimUsers:")
             for row in userrows:
-                print(str(row[0]) + "," + row[1] + " ," +  row[2]  + " ," + row[3] + " ," + row[4] + " ," +  str(row[5]) + " ," + str(row[6]) + ", " + str(row[7]) + ", " + str(row[8]) + ", " + str(row[9]) + ", " + row[10] + ", " + str(row[11])	)
+                print(str(row) + "\t")
     except Exception as e:
         print("Error, database extraction and print(Users) failure; This is the info we have about it:" + e)
         db.rollback()				#rollback on failure
@@ -142,7 +142,7 @@ def ExtractDataFromDB(db):
         if locationrows:
             print("\ndimLocation:")
             for row in locationrows:
-                print(str(row[0]) + ", " + row[1] + ", " + row[2] + ", " + row[3])
+                print(str(row) + "\t")
     except Exception as e:
         print("Error, database extraction and print (Location) failure; This is the info we have about it:" + e)
         db.rollback()				#rollback on failure
@@ -157,7 +157,7 @@ def ExtractDataFromDB(db):
         if projectrows:
             print("\ndimProject:")
             for row in projectrows:
-                print(str(row[0]) + ", " + row[1] + ", " + str(row[2]) + " ," + str(row[3]) + " ," + str(row[4]) + " ," + str(row[5]) + ", " + row[6] + ", " + str(row[7])	)
+                print(str(row) + "\t")
     except Exception as e:
         print("Error, database extraction and print(Project) failure; This is the info we have about it:" + e)
         db.rollback()				#rollback on failure
@@ -174,14 +174,13 @@ def ExtractDataFromDB(db):
         if sessionrows:
             print("\ndimSession:")
             for row in sessionrows:
-                print(str(row[0]) + ", " + str(row[1]) + ", " + str(row[2]) + " ," + str(row[3]) + " ," + str(row[4]) + " ," + str(row[5])	)
+                print(str(row) + "\t")
     except Exception as e:
         print("Error, database extraction and print(Session) failure; This is the info we have about it:" + e)
         db.rollback()				#rollback on failure
         sys.exit('Exiting')
 
     print("Success! database data extraction (Session) successful")
-
 
     #extract data for dimDate in data warehouse (SessionDate for both login AND logout)
     try:
@@ -191,7 +190,7 @@ def ExtractDataFromDB(db):
         if loginDateRows:
             print("\ndimDate_Login:")
             for row in loginDateRows:
-                print(str(row[0]) + ", " + str(row[1]) + ", " + str(row[2]) + " ," + str(row[3]))
+                print(str(row) + "\t")
                 
         cursor.execute("SELECT distinct day(session_logoutDate), month(session_logoutDate),year(session_logoutDate), time(session_logoutDate) FROM Session;")	#data for  logout date... both will be added to warehouse
         logoutDateRows = cursor.fetchall()	
@@ -199,7 +198,7 @@ def ExtractDataFromDB(db):
         if logoutDateRows:
             print("\ndimDate_Logout:")
             for row in logoutDateRows:
-                print(str(row[0]) + ", " + str(row[1]) + ", " + str(row[2]) + " ," + str(row[3]))
+                print(str(row) + "\t")
     except Exception as e:
         print("Error, database extraction and print(Date) failure; This is the info we have about it:" + e)
         db.rollback()				#rollback on failure
@@ -209,10 +208,8 @@ def ExtractDataFromDB(db):
     #close connection to database
     cursor.close()	
 
-
     data = [userrows, locationrows, projectrows, sessionrows, loginDateRows, logoutDateRows]
     return data
- 
 
 def LoadDataToDB(db, data):
     userRows = data[0]
