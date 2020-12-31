@@ -11,9 +11,7 @@ db = ConnectToDB('localhost', 'root', 'P@ssw0rd!', 'db')
 #Extraction
 data = ExtractDataFromDB(db)
 
-#Transform
-
-#Load 
+#Create DataWarehouse & Load 
 CreateDataWarehouse(db, 'dwETL')
 dw = ConnectToDB('localhost', 'root', 'P@ssw0rd!', 'dwETL')
 LoadDataToDB(dw, data)
