@@ -281,7 +281,6 @@ def LoadDataToDB(db, data):
     print("Success! LOAD  data (Date) into data warehouse (dimDate) successful")
     print
 
-
     ########LOAD factSession into data warehouse######
     #note: 0's used to fill DimLocation_location_id and DimDate_date_id; accurate way of linking required
     try:

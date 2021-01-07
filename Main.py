@@ -19,4 +19,3 @@ LoadDataToDB(dw, data)
 ##INCOMPLETE
 #1	FactSession date_id and project_id LOAD
 #2  Foreign constraints for project_id and date_id in factSession required POST LOAD
-
