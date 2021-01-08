@@ -27,8 +27,28 @@ def ConnectToDB(db_host, db_user, db_pass, db_name):
         return db  
     except Exception as e:
         print("Error, connection to database failure; This is the info we have about it:" + str(e))
-        sys.exit('Exiting')    
+        sys.exit('Exiting')  
 
+def CreateDataBaseFromCSV(db, filename):
+    cursor = db.cursor()
+    # Open and read the file as a single buffer
+    fd = open(filename, 'r')
+    sqlFile = fd.read()
+    fd.close()
+
+    # all SQL commands (split on ';')
+    sqlCommands = sqlFile.split(';')
+
+    # Execute every command from the input file
+    for command in sqlCommands:
+        try:
+            cursor.execute(command)
+            print("\nSuccess! The DataBase was created from file:" + filename + "\n")
+        except Exception as e:
+            print("Error, sql failure; This is the info we have about it: " + str(e))
+	
+    cursor.close()  
+          
 #datawarehouse creation
 def CreateDataWarehouse(db, dw_name):
 	try:
