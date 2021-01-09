@@ -6,9 +6,11 @@
 
 from Database import *
 
+#Create source DB from file
 db = ConnectToMySQL('localhost', 'root', 'P@ssw0rd!')
-CreateDataBaseFromCSV(db, "db.sql")
+CreateDataBaseFromFile(db, "db.sql")
 
+#Connect with newly created DB - data source
 db = ConnectToDB('localhost', 'root', 'P@ssw0rd!', 'db')
 
 #Extraction

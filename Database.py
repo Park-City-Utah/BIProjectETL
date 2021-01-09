@@ -30,7 +30,7 @@ def ConnectToDB(db_host, db_user, db_pass, db_name):
         sys.exit('Exiting')  
 
 #Create DataBase from sql file
-def CreateDataBaseFromCSV(db, filename):
+def CreateDataBaseFromFile(db, filename):
     # Open and read the file as a single buffer
     fd = open(filename, 'r')
     sqlFile = fd.read()
