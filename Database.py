@@ -1,7 +1,7 @@
 import mysql.connector
 import sys
 
-########connection for database creation
+#Connection for database creation
 def ConnectToMySQL(db_host, db_user, db_pass):
     try:
         db = mysql.connector.connect(
@@ -15,7 +15,7 @@ def ConnectToMySQL(db_host, db_user, db_pass):
         sys.exit('Exiting')
 
     
-###########connect to database
+#Connect to database
 def ConnectToDB(db_host, db_user, db_pass, db_name):
     try:
         db = mysql.connector.connect(
@@ -29,8 +29,8 @@ def ConnectToDB(db_host, db_user, db_pass, db_name):
         print("Error, connection to database failure; This is the info we have about it:" + str(e))
         sys.exit('Exiting')  
 
+#Create DataBase from sql file
 def CreateDataBaseFromCSV(db, filename):
-    cursor = db.cursor()
     # Open and read the file as a single buffer
     fd = open(filename, 'r')
     sqlFile = fd.read()
@@ -40,6 +40,7 @@ def CreateDataBaseFromCSV(db, filename):
     sqlCommands = sqlFile.split(';')
 
     # Execute every command from the input file
+    cursor = db.cursor()
     for command in sqlCommands:
         try:
             cursor.execute(command)
